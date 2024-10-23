@@ -143,11 +143,8 @@ def update_graph(selected_episode):
     # Get publish date
     publish_date = filtered_df['published_at'].iloc[0].strftime('%B %d, %Y')
     
-    # Calculate monthly download differences
-    filtered_df['monthly_downloads'] = filtered_df['downloads_total'].diff().fillna(filtered_df['downloads_total'])
-    
     # Calculate cumulative total downloads
-    total_downloads = filtered_df['monthly_downloads'].sum()
+    total_downloads = filtered_df['downloads_total'].sum()
     
     # Create the line graph
     fig = go.Figure()
@@ -167,7 +164,7 @@ def update_graph(selected_episode):
     )
     
     # Get latest monthly downloads
-    latest_monthly_downloads = filtered_df['monthly_downloads'].iloc[-1]
+    latest_monthly_downloads = filtered_df['downloads_total'].iloc[-1]
     
     return fig, f"{int(total_downloads):,}", f"{int(latest_monthly_downloads):,}"
 
